@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS housings(
+    uuid CHAR(20) NOT NULL,
+    "type" INT,
+    room_amount INT,
+    suite_amount INT,
+    bedroom_amount INT,
+    parking_spaces INT,
+    area INT,
+    has_cabinets BOOLEAN,
+    "description" TEXT,
+    fees REAL,
+    has_concierge BOOLEAN,
+    street VARCHAR(255),
+    "number" INT,
+    district VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(255),
+    cep CHAR(9),
+    "floor" int,
+    rent_value REAL
+);

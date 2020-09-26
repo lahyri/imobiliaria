@@ -1,0 +1,6 @@
+env: "dev"
+debug: true
+address: "0.0.0.0:4000"
+webapp: "http://localhost:8080/"
+database: "user=postgres password=123456 port=5434 dbname=core host=localhost sslmode=disable"
+  

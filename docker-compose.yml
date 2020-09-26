@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  core-db:
+    image: postgres:11-alpine
+    restart: always
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_PASSWORD: 123456
