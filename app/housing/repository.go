@@ -144,7 +144,7 @@ func getCitiesMock(state string) ([]string, error) {
 		if housing.State == state {
 			_, ok := cities[housing.City]
 			if !ok {
-				cities[housing.State] = true
+				cities[housing.City] = true
 			}
 		}
 
@@ -165,7 +165,7 @@ func getDistrictsMock(state string, city string) ([]string, error) {
 			if housing.City == city {
 				_, ok := districts[housing.District]
 				if !ok {
-					districts[housing.State] = true
+					districts[housing.District] = true
 				}
 			}
 
