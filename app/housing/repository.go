@@ -90,6 +90,9 @@ func getAllMock() ([]Housing, error) {
 func saveMock(housing Housing) (Housing, error) {
 
 	uuid, err := helper.GenerateUUID()
+	if err != nil {
+		return Housing{}, err
+	}
 	housing.UUID = uuid
 	Database = append(Database, housing)
 	return housing, nil
