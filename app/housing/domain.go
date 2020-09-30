@@ -5,6 +5,8 @@ const (
 	TypeAppartment = int(2)
 )
 
+var Database []Housing
+
 type Housing struct {
 	UUID          string   `json:"uuid"`
 	Type          int      `json:"type"`

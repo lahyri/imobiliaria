@@ -7,18 +7,16 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/spf13/viper"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 func main() {
-	dsn := viper.GetString(`database`)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	config := config.Config{db}
-	if err != nil {
-		panic("failed to connect database")
-	}
+	// dsn := viper.GetString(`database`)
+	// db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	// config := config.Config{db}
+	// if err != nil {
+	// 	panic("failed to connect database")
+	// }
+	config := config.Config{}
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
