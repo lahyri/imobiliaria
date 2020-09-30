@@ -142,7 +142,7 @@ func getCitiesMock(state string) ([]string, error) {
 	cities := make(map[string]bool)
 	for _, housing := range Database {
 		if housing.State == state {
-			_, ok := cities[housing.State]
+			_, ok := cities[housing.City]
 			if !ok {
 				cities[housing.State] = true
 			}
@@ -163,7 +163,7 @@ func getDistrictsMock(state string, city string) ([]string, error) {
 	for _, housing := range Database {
 		if housing.State == state {
 			if housing.City == city {
-				_, ok := districts[housing.State]
+				_, ok := districts[housing.District]
 				if !ok {
 					districts[housing.State] = true
 				}
