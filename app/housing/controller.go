@@ -1,7 +1,6 @@
 package housing
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/lahyri/imobiliaria/config"
@@ -53,19 +52,17 @@ type RespHousing struct {
 	RentValue     float64  `json:"rent_value"`
 }
 
-type response struct {
-	values []string `json:"values"`
-}
-
 func GetDistricts(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		state := c.Param("state")
 		city := c.Param("city")
 
-		districts, err := getDistricts(config.DB, state, city)
+		//districts, err := getDistricts(config.DB, state, city)
+		districts, err := getDistrictsMock(state, city)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, nil)
 		}
+
 		return c.JSON(http.StatusOK, districts)
 	}
 }
@@ -73,7 +70,8 @@ func GetCities(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		state := c.Param("state")
 
-		cities, err := getCities(config.DB, state)
+		// cities, err := getCities(config.DB, state)
+		cities, err := getCitiesMock(state)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, nil)
 		}
@@ -83,7 +81,8 @@ func GetCities(config *config.Config) echo.HandlerFunc {
 func GetStates(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		states, err := getStates(config.DB)
+		// states, err := getStates(config.DB)
+		states, err := getStatesMock()
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, nil)
 		}
@@ -94,23 +93,34 @@ func GetStates(config *config.Config) echo.HandlerFunc {
 func GetAll(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		states := response{}
-		return c.JSON(http.StatusOK, states)
+		response, err := getAllMock()
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+		return c.JSON(http.StatusOK, response)
 	}
 }
 
 func GetOne(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		states := response{}
-		return c.JSON(http.StatusOK, states)
+		uuid := c.Param("uuid")
+		response, err := getOneMock(uuid)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+		return c.JSON(http.StatusOK, response)
 	}
 }
 func Delete(config *config.Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
 
-		states := response{}
-		return c.JSON(http.StatusOK, states)
+		uuid := c.Param("uuid")
+		err := deleteMock(uuid)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+		return c.JSON(http.StatusOK, nil)
 	}
 }
 func Post(config *config.Config) echo.HandlerFunc {
@@ -129,7 +139,11 @@ func Post(config *config.Config) echo.HandlerFunc {
 
 		copier.Copy(&house, req)
 
-		log.Printf("this is yout req %#v", req)
-		return c.JSON(http.StatusOK, house)
+		housing, err := saveMock(house)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, nil)
+		}
+
+		return c.JSON(http.StatusOK, housing)
 	}
 }
